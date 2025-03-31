@@ -1,0 +1,19 @@
+.navbar {
+    background-color: #eba925; /* Blue */
+    padding: 16px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .link {
+    margin: 0 10px;
+    text-decoration: none;
+    color: white;
+  }
+  
+  .link:hover {
+    text-decoration: underline;
+  }
+  

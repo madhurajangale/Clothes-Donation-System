@@ -1,0 +1,49 @@
+.container {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .donationList {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .donationCard {
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  .buttonContainer {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .acceptButton {
+    background-color: green;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+  .completedButton {
+    background-color: orange;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px;
+    cursor: pointer;
+  }

@@ -1,0 +1,49 @@
+.authContainer {
+    max-width: 400px;
+    margin: auto;
+    padding: 2rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    text-align: center;
+  }
+  
+  .authForm input {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .authForm button {
+    width: 100%;
+    padding: 10px;
+    background-color: #eba925;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  .toggleContainer {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .toggleContainer button {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    background-color: #ddd;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .toggleContainer .active {
+    background-color: #eba925;
+    color: white;
+  }
+  
