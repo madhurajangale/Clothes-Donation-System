@@ -1,0 +1,62 @@
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .title {
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .contactForm {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .contactForm input,
+  .contactForm textarea {
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+  }
+  
+  .contactForm textarea {
+    resize: vertical;
+    height: 150px;
+  }
+  
+  .submitButton {
+    padding: 12px;
+    background-color: #ff9900;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .submitButton:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+  
+  .successMessage {
+    color: green;
+    text-align: center;
+    margin-top: 15px;
+  }
+  
+  .errorMessage {
+    color: red;
+    text-align: center;
+    margin-top: 15px;
+  }
+  

@@ -2,7 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
 import styles from "../styles/Auth.module.css"; // Import CSS module
 
-export default function Login() {
+export default function Login({ onLogin }) {
+
   const [isNGO, setIsNGO] = useState(false); // Track User/NGO toggle state
   const [formData, setFormData] = useState({
     email: "",
@@ -38,18 +39,21 @@ export default function Login() {
 
       const data = await response.json();
 
-      // Store user's email or NGO email in localStorage
       if (isNGO) {
-        localStorage.setItem("ngoEmail", formData.email); // Save NGO email
+        localStorage.setItem("user", JSON.stringify({ email: formData.email, role: "ngo" }));
       } else {
-        localStorage.setItem("userEmail", formData.email); // Save User email
+        localStorage.setItem("user", JSON.stringify({ email: formData.email, role: "user" }));
       }
-
+      
+      onLogin?.(); // trigger update in App
+      
       alert(`Login successful as ${isNGO ? "NGO" : "User"}!`);
+      
+      
 
       // Navigate to appropriate page based on role
       if (isNGO) {
-        navigate("/ngohome"); // Navigate to NGO Home page
+        navigate("/ngoreq"); // Navigate to NGO Home page
       } else {
         navigate("/home"); // Navigate to User Home page
       }

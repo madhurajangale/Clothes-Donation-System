@@ -1,7 +1,7 @@
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import styles from "../styles/Home.module.css"; // Import CSS Module
-
+import ContactUs from "../components/ContactUs";
 export default function Home() {
   return (
     <div>
@@ -53,6 +53,9 @@ export default function Home() {
           <h2>500+</h2>
           <p>Donors & Helpers</p>
         </div>
+      </section>
+      <section id="contact" >
+        <ContactUs />
       </section>
 
       {/* Section D: Footer */}

@@ -54,7 +54,7 @@ export default function NgoHome() {
   
   
   return (
-    <div className={styles.container}>
+    <div className={styles.containers}>
       <h2 className={styles.title}>Received Donation Requests</h2>
       {donations.length === 0 ? (
         <p>No donation requests found.</p>
@@ -65,7 +65,7 @@ export default function NgoHome() {
               <p>
                 <strong>User Email:</strong> {donation.user_email}
               </p>
-              <p>
+              <p>   
                 <strong>Number of Clothes:</strong>{" "}
                 {donation.clothes_details.number_of_clothes}
               </p>

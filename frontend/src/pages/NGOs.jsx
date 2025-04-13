@@ -11,6 +11,7 @@ export default function NGOs() {
     type: "",
     takeawayDate: "",
   }); // Donation form data
+  const [searchQuery, setSearchQuery] = useState(""); // Track search query
 
   useEffect(() => {
     axios.get("http://localhost:5000/ngos/list").then((res) => setNgos(res.data));
@@ -27,9 +28,9 @@ export default function NGOs() {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault(); // Prevent form reload
-  
+
     const userEmail = localStorage.getItem("userEmail"); // Retrieve email from localStorage
-  
+
     const payload = {
       user_email: userEmail, // Include user's email
       clothes_details: {
@@ -42,7 +43,7 @@ export default function NGOs() {
         email: selectedNgo.email, // NGO Email
       },
     };
-  
+
     try {
       await axios.post("http://localhost:5000/donations/create", payload);
       alert("Donation submitted successfully!");
@@ -54,28 +55,48 @@ export default function NGOs() {
     }
   };
 
-  
+  // Filter the NGOs based on the search query
+  const filteredNgos = ngos.filter((ngo) =>
+    ngo.ngo_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    ngo.ngo_type.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    ngo.address.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>NGOs & Orphanages</h2>
+
+      {/* Search Bar */}
+      <input
+        type="text"
+        className={styles.searchBar}
+        placeholder="Search by NGO name, type, or address..."
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+      />
+
       <div className={styles.ngoList}>
-        {ngos.map((ngo, index) => (
-          <div key={index} className={styles.ngoCard}>
-            <img src={ngo.image_url} alt={ngo.ngo_name} className={styles.ngoImage} />
-            <div className={styles.ngoInfo}>
-              <h3>{ngo.ngo_name}</h3>
-              <p><strong>Address:</strong> {ngo.address}</p>
-              <p><strong>Type:</strong> {ngo.ngo_type}</p>
-              <p><strong>Phone:</strong> {ngo.phone}</p>
-              <button
-                className={styles.donateButton}
-                onClick={() => handleDonateClick(ngo)} // Pass the NGO to the donate handler
-              >
-                Donate
-              </button>
+        {filteredNgos.length === 0 ? (
+          <p>No NGOs found.</p>
+        ) : (
+          filteredNgos.map((ngo, index) => (
+            <div key={index} className={styles.ngoCard}>
+              <img src={ngo.image_url} alt={ngo.ngo_name} className={styles.ngoImage} />
+              <div className={styles.ngoInfo}>
+                <h3>{ngo.ngo_name}</h3>
+                <p><strong>Address:</strong> {ngo.address}</p>
+                <p><strong>Type:</strong> {ngo.ngo_type}</p>
+                <p><strong>Phone:</strong> {ngo.phone}</p>
+                <button
+                  className={styles.donateButton}
+                  onClick={() => handleDonateClick(ngo)} // Pass the NGO to the donate handler
+                >
+                  Donate
+                </button>
+              </div>
             </div>
-          </div>
-        ))}
+          ))
+        )}
       </div>
 
       {/* Modal Donation Form */}

@@ -1,0 +1,95 @@
+.card-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 80px 20px;
+    background: linear-gradient(135deg, #d95f1d, #ecc243);
+    min-height: 40vh;
+    margin: 100px;
+    border-radius: 10px;
+  }
+  
+  .card {
+    background-color: white;
+    border-radius: 20px;
+    padding: 30px;
+    max-width: 400px;
+    width: 100%;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    position: relative;
+  }
+  
+  .top-bar {
+    height: 100px;
+    background: linear-gradient(135deg, #d95f1d, #ecc243);
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: -1;
+  }
+  
+  .avatar-container {
+    margin-top: -70px;
+  }
+  
+  .avatar {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    border: 5px solid white;
+    object-fit: cover;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  }
+  
+  .info {
+    margin-top: 20px;
+  }
+  
+  .info h2 {
+    font-size: 24px;
+    margin-bottom: 8px;
+    color: #111;
+  }
+  
+  .info p {
+    margin: 5px 0;
+    color: #555;
+  }
+  
+  input {
+    display: block;
+    width: 90%;
+    margin: 8px auto;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+  }
+  
+  .btn {
+    background: linear-gradient(to right, #d95f1d, #ecc243);
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    margin-top: 15px;
+    border-radius: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .btn:hover {
+    background: linear-gradient(to right, #d95f1d, #ecc243);
+  }
+  
+  .loading {
+    text-align: center;
+    margin-top: 50px;
+    font-size: 20px;
+    color: white;
+  }
+  

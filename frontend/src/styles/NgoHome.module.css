@@ -2,6 +2,7 @@
     padding: 20px;
     max-width: 800px;
     margin: 0 auto;
+    width: 600px;
   }
   
   .title {
@@ -15,6 +16,8 @@
     display: flex;
     flex-direction: column;
     gap: 15px;
+    align-items: center;
+    justify-content: center;
   }
   
   .donationCard {
@@ -22,6 +25,8 @@
     padding: 15px;
     border-radius: 5px;
     background-color: #f9f9f9;
+    width: 800px;
+    
   }
   
   .buttonContainer {
