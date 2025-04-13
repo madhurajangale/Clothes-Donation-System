@@ -75,29 +75,37 @@ export default function NGOs() {
         onChange={(e) => setSearchQuery(e.target.value)}
       />
 
-      <div className={styles.ngoList}>
-        {filteredNgos.length === 0 ? (
-          <p>No NGOs found.</p>
-        ) : (
-          filteredNgos.map((ngo, index) => (
-            <div key={index} className={styles.ngoCard}>
-              <img src={ngo.image_url} alt={ngo.ngo_name} className={styles.ngoImage} />
-              <div className={styles.ngoInfo}>
-                <h3>{ngo.ngo_name}</h3>
-                <p><strong>Address:</strong> {ngo.address}</p>
-                <p><strong>Type:</strong> {ngo.ngo_type}</p>
-                <p><strong>Phone:</strong> {ngo.phone}</p>
-                <button
-                  className={styles.donateButton}
-                  onClick={() => handleDonateClick(ngo)} // Pass the NGO to the donate handler
-                >
-                  Donate
-                </button>
-              </div>
-            </div>
-          ))
+<div className={styles.ngoList}>
+  {filteredNgos.length === 0 ? (
+    <p>No NGOs found.</p>
+  ) : (
+    filteredNgos.map((ngo, index) => (
+      <div key={index} className={styles.ngoCard}>
+        {/* Red dot indicator */}
+        {ngo.needRaised && (
+          <span className={styles.redDot} title="Need Raised"></span>
         )}
+
+        <img src={ngo.image_url} alt={ngo.ngo_name} className={styles.ngoImage} />
+        <div className={styles.ngoInfo}>
+          <h3>
+            {ngo.ngo_name} {ngo.needRaised && <span className={styles.redText}>🔴</span>}
+          </h3>
+          <p><strong>Address:</strong> {ngo.address}</p>
+          <p><strong>Type:</strong> {ngo.ngo_type}</p>
+          <p><strong>Phone:</strong> {ngo.phone}</p>
+          <button
+            className={styles.donateButton}
+            onClick={() => handleDonateClick(ngo)}
+          >
+            Donate
+          </button>
+        </div>
       </div>
+    ))
+  )}
+</div>
+
 
       {/* Modal Donation Form */}
       {donationFormVisible && (

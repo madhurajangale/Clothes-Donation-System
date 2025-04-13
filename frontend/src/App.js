@@ -23,7 +23,7 @@ function App() {
 
   return (
     <Router>
-      {isUserLoggedIn && <Navbar />}
+      <Navbar />
 
       <Routes>
         <Route path="/" element={

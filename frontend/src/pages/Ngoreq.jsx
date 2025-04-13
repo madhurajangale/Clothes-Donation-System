@@ -4,7 +4,30 @@ import styles from "../styles/NgoHome.module.css"; // Custom CSS module for styl
 
 export default function NgoHome() {
   const [donations, setDonations] = useState([]); // State to store donation requests
+  const [raised, setRaised] = useState(false);
 
+  const handleRaiseNeed = async () => {
+    try {
+      const ngoEmail = localStorage.getItem("ngoEmail");
+      if (!ngoEmail) {
+        alert("No NGO email found.");
+        return;
+      }
+  
+      // Toggle the needRaised state before sending the request
+      const newNeedRaisedStatus = !raised;
+      await axios.put(`http://localhost:5000/ngos/raise-need/${ngoEmail}`, {
+        needRaised: newNeedRaisedStatus,
+      });
+  
+      // Update the local state to reflect the new status
+      setRaised(newNeedRaisedStatus);
+    } catch (err) {
+      console.error("Error:", err);
+      alert("Failed to raise need.");
+    }
+  };
+  
   useEffect(() => {
     const fetchDonations = async () => {
       try {
@@ -55,6 +78,9 @@ export default function NgoHome() {
   
   return (
     <div className={styles.containers}>
+      <button onClick={handleRaiseNeed} disabled={raised}>
+      {raised ? "Need Raised ✅" : "Raise a Need"}
+    </button>
       <h2 className={styles.title}>Received Donation Requests</h2>
       {donations.length === 0 ? (
         <p>No donation requests found.</p>

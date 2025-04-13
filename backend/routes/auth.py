@@ -56,7 +56,8 @@ def ngo_signup():
         "address": data["address"],
         "registration_number": data["registration_number"],
         "ngo_type": data["ngo_type"],
-        "image_url": image_url
+        "image_url": image_url,
+        "needRaised": False  # 👈 New field
     }
     db.ngos.insert_one(ngo)
     return jsonify({"message": "NGO Registration successful!"})
