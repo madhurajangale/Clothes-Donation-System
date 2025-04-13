@@ -54,6 +54,28 @@ def contact_submit():
         print("Error:", e)
         return jsonify({"error": "Failed to send message"}), 500
 
+@app.route('/donations/send-status-email', methods=['POST'])
+def send_status_email():
+    data = request.get_json()
+
+    user_email = data.get('user_email')
+    ngo_email = data.get('ngo_email')
+    status = data.get('status')
+
+    try:
+        subject = f"Donation Status Update: {status}"
+        body = f"Dear User,\n\nYour donation request has been updated to {status} by the NGO with email: {ngo_email}.\n\nThank you for your generosity!"
+        
+        msg = Message(subject=subject,
+                      recipients=[user_email])  # Send email to user
+        msg.body = body
+        mail.send(msg)
+        
+        return jsonify({"message": "Status email sent successfully."}), 200
+    except Exception as e:
+        print("Error sending email:", e)
+        return jsonify({"error": "Failed to send status email."}), 500
+
 
 if __name__ == "__main__":
     app.run(debug=True)

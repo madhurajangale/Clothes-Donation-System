@@ -8,34 +8,36 @@ donations_bp = Blueprint('donations', __name__)
 def create_donation():
     try:
         data = request.json
-        
-        # Match user email in the database
-        user = db.users.find_one({"email": data["user_email"]})
+
+        user_email = data.get("user_email")
+        if not user_email:
+            return jsonify({"error": "User email is required"}), 400
+
+        # Look up user details from DB
+        user = db.users.find_one({"email": user_email})
         if not user:
             return jsonify({"error": "User not found"}), 404
 
-        # Prepare the donation object with extracted and provided details
+        # Build donation object
         donation = {
             "_id": str(uuid.uuid4()),
-            "user_email": data["user_email"],  # User email
-            "user_phone": user["phone"],      # Extracted from database
-            "user_address": user["address"],  # Extracted from database
-            "clothes_details": data["clothes_details"],  # Provided in the payload
-            "takeaway_date": data["takeaway_date"],       # Provided in the payload
-            "ngo_name": data["ngo_details"]["name"],      # Provided in the payload
-            "ngo_email": data["ngo_details"]["email"],    # Provided in the payload
-            "status": "Pending",  # Default status
-            "created_at": str(uuid.uuid1()),  # Timestamp
+            "user_email": user_email,
+            "user_phone": user.get("phone"),
+            "user_address": user.get("address"),
+            "clothes_details": data.get("clothes_details"),
+            "takeaway_date": data.get("takeaway_date"),
+            "ngo_name": data.get("ngo_details", {}).get("name"),
+            "ngo_email": data.get("ngo_details", {}).get("email"),
+            "status": "Pending",
+            "created_at": str(uuid.uuid1()),  # UUID1 includes timestamp
         }
 
-        # Save the donation in the database
         db.donations.insert_one(donation)
         return jsonify({"message": "Donation successfully created!"}), 201
+
     except Exception as e:
         print("Error creating donation:", e)
         return jsonify({"error": "Failed to create donation"}), 500
-    
-    
 
 @donations_bp.route('/history', methods=['GET'])
 def donation_history():
@@ -93,3 +95,5 @@ def update_donation_status():
     except Exception as e:
         print("Error updating donation status:", e)
         return jsonify({"error": "Failed to update donation status"}), 500
+    
+    

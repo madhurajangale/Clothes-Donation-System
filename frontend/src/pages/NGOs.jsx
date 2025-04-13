@@ -27,33 +27,40 @@ export default function NGOs() {
   };
 
   const handleFormSubmit = async (e) => {
-    e.preventDefault(); // Prevent form reload
-
-    const userEmail = localStorage.getItem("userEmail"); // Retrieve email from localStorage
-
+    e.preventDefault();
+  
+    const storedUser = localStorage.getItem("user");
+    if (!storedUser) {
+      alert("User not logged in. Please log in first.");
+      return;
+    }
+  
+    const { email: userEmail } = JSON.parse(storedUser);
+  
     const payload = {
-      user_email: userEmail, // Include user's email
+      user_email: userEmail,
       clothes_details: {
         number_of_clothes: formData.numberOfClothes,
         type: formData.type,
       },
       takeaway_date: formData.takeawayDate,
       ngo_details: {
-        name: selectedNgo.ngo_name, // NGO Name
-        email: selectedNgo.email, // NGO Email
+        name: selectedNgo.ngo_name,
+        email: selectedNgo.email,
       },
     };
-
+  
     try {
       await axios.post("http://localhost:5000/donations/create", payload);
       alert("Donation submitted successfully!");
-      setDonationFormVisible(false); // Hide the modal
-      setFormData({ numberOfClothes: "", type: "", takeawayDate: "" }); // Reset form data
+      setDonationFormVisible(false);
+      setFormData({ numberOfClothes: "", type: "", takeawayDate: "" });
     } catch (error) {
       console.error("Failed to submit donation:", error.response?.data || error.message);
       alert("Failed to submit donation.");
     }
   };
+  
 
   // Filter the NGOs based on the search query
   const filteredNgos = ngos.filter((ngo) =>

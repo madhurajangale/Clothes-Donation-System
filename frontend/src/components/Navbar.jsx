@@ -6,6 +6,8 @@ export default function Navbar() {
   const role = userData?.role;
 
   const handleLogout = () => {
+    localStorage.removeItem("ngoEmail");
+   localStorage.removeItem("userEmail");
     localStorage.removeItem("user");
     window.location.href = "/login";
   };

@@ -38,12 +38,14 @@ export default function Login({ onLogin }) {
       }
 
       const data = await response.json();
-
       if (isNGO) {
+        localStorage.setItem("ngoEmail", formData.email); // store NGO email
         localStorage.setItem("user", JSON.stringify({ email: formData.email, role: "ngo" }));
       } else {
+        localStorage.setItem("userEmail", formData.email); // store user email
         localStorage.setItem("user", JSON.stringify({ email: formData.email, role: "user" }));
       }
+      
       
       onLogin?.(); // trigger update in App
       

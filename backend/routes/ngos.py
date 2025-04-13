@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint,request, jsonify
 from db import db  # ✅ Correct Import
 
 ngos_bp = Blueprint('ngos', __name__)

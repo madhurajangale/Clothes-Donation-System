@@ -52,29 +52,32 @@ export default function NgoHome() {
   }, []);
 
   const handleStatusChange = async (userEmail, ngoEmail, newStatus) => {
-    try {
-      const payload = {
-        user_email: userEmail, // User's email
-        ngo_email: ngoEmail,   // NGO's email
-        status: newStatus,     // New status (Accepted or Completed)
-      };
-  
-      const response = await axios.patch(`http://localhost:5000/donations/update-status`, payload);
-  
-      alert(`Donation status updated to ${newStatus}!`);
-      setDonations((prev) =>
-        prev.map((donation) =>
-          donation.user_email === userEmail && donation.ngo_email === ngoEmail
-            ? { ...donation, status: newStatus }
-            : donation
-        )
-      ); // Update state locally
-    } catch (error) {
-      console.error("Failed to update donation status:", error.response?.data || error.message);
-      alert("Failed to update donation status.");
-    }
-  };
-  
+  try {
+    const payload = {
+      user_email: userEmail, // User's email
+      ngo_email: ngoEmail,   // NGO's email
+      status: newStatus,     // New status (Accepted or Completed)
+    };
+
+    const response = await axios.patch(`http://localhost:5000/donations/update-status`, payload);
+
+    // Send an email notification after the status change
+    await axios.post('http://localhost:5000/donations/send-status-email', payload);
+
+    alert(`Donation status updated to ${newStatus}!`);
+    setDonations((prev) =>
+      prev.map((donation) =>
+        donation.user_email === userEmail && donation.ngo_email === ngoEmail
+          ? { ...donation, status: newStatus }
+          : donation
+      )
+    ); // Update state locally
+  } catch (error) {
+    console.error("Failed to update donation status:", error.response?.data || error.message);
+    alert("Failed to update donation status.");
+  }
+};
+
   
   return (
     <div className={styles.containers}>
