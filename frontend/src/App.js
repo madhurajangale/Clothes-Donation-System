@@ -16,6 +16,21 @@ function App() {
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
     setRole(storedUser?.role || null);
+
+    // 👉 Inject Google Analytics
+    const script1 = document.createElement("script");
+    script1.async = true;
+    script1.src = "https://www.googletagmanager.com/gtag/js?id=G-CZRVG49ZT0";
+    document.head.appendChild(script1);
+
+    const script2 = document.createElement("script");
+    script2.innerHTML = `
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-CZRVG49ZT0');
+    `;
+    document.head.appendChild(script2);
   }, []);
 
   const isUserLoggedIn = role === "user";
@@ -24,7 +39,6 @@ function App() {
   return (
     <Router>
       <Navbar />
-
       <Routes>
         <Route path="/" element={
           isUserLoggedIn
@@ -34,14 +48,13 @@ function App() {
               : <Navigate to="/login" replace />
         } />
         <Route path="/login" element={
-            isUserLoggedIn || isNGOLoggedIn
-              ? <Navigate to={isUserLoggedIn ? "/home" : "/ngoreq"} replace />
-              : <Login onLogin={() => {
-                  const storedUser = JSON.parse(localStorage.getItem("user"));
-                  setRole(storedUser?.role || null);
-                }} />
-          } />
-
+          isUserLoggedIn || isNGOLoggedIn
+            ? <Navigate to={isUserLoggedIn ? "/home" : "/ngoreq"} replace />
+            : <Login onLogin={() => {
+                const storedUser = JSON.parse(localStorage.getItem("user"));
+                setRole(storedUser?.role || null);
+              }} />
+        } />
         <Route path="/signup" element={
           isUserLoggedIn || isNGOLoggedIn
             ? <Navigate to={isUserLoggedIn ? "/home" : "/ngoreq"} replace />
